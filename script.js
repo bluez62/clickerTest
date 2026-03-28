@@ -11,7 +11,7 @@ function onecps() {
 }
 
 function mrLoop() {
-  document.getElementById("ver").innerText = version;
+  document.getElementById("counter").innerText = clicks;
 setTimeout(() {
   mrLoop();
 }, 1000 / 30);

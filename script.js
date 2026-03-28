@@ -11,8 +11,12 @@ function onecps() {
 }
 
 function mrLoop() {
-  document.getElementById("counter").innerText = clicks;
 setTimeout(() {
   mrLoop();
 }, 1000 / 30);
+}
+
+function click() {
+  clicks += 1
+  document.getElementById("counter").innerText = clicks
 }

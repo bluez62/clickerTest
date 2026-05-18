@@ -10,7 +10,7 @@ function onecps() {
   }
 }
 
-function mrLoop() {
+function mrLoop() => {
 setTimeout(() {
   mrLoop();
 }, 1000 / 30);

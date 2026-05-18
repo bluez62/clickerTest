@@ -1,5 +1,5 @@
 const version = "V1.0.0";
-let clicks = 0;
+let clicks = 4;
 let cps = 0;
 let cpc = 1;
 

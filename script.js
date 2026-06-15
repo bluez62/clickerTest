@@ -17,8 +17,7 @@ setTimeout(() => {
 }
 
 function doClick() {
-  alert("DEBUG")
   clicks += 1
   console.log(clicks)
-  document.getElementById("counter").innerText = clicks
+  document.getElementById("counter").innerText = clicks + " Clicks"
 }

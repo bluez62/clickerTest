@@ -2,7 +2,7 @@ const version = "V1.0.0";
 let clicks = 4;
 let cps = 0;
 let cpc = 1;
-console.log("Started!");
+alert("AAAAAAAA")
 
 function onecps() {
   if(clicks >= 50) {

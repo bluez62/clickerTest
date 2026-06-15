@@ -16,7 +16,7 @@ setTimeout(() => {
 }, 1000 / 30);
 }
 
-function click() {
+function doClick() {
   alert("DEBUG")
   clicks += 1
   console.log(clicks)

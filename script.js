@@ -2,7 +2,6 @@ const version = "V1.0.0";
 let clicks = 4;
 let cps = 0;
 let cpc = 1;
-alert("AAAAAAAA")
 
 function onecps() {
   if(clicks >= 50) {
@@ -18,6 +17,7 @@ setTimeout(() => {
 }
 
 function click() {
+  alert("DEBUG")
   clicks += 1
   console.log(clicks)
   document.getElementById("counter").innerText = clicks

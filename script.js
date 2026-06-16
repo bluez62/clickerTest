@@ -7,6 +7,7 @@ function onecps() {
   if(clicks >= 50) {
     clicks -= 50;
     cps += 1;
+    document.getElementById("counter").innerText = clicks + " Clicks"
   }
 }
 
@@ -21,3 +22,4 @@ function doClick() {
   console.log(clicks)
   document.getElementById("counter").innerText = clicks + " Clicks"
 }
+mrLoop();

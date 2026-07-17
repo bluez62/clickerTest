@@ -10,6 +10,7 @@ function onecps() {
     cpc += 1;
     document.getElementById("counter").innerText = clicks + " Clicks";
     cpc1cost *= 1.15;
+    cpc1cost = Math.round(cpc1cost);
     document.getElementById("cpc1counter").innerText = "+1 CPC - Cost: " + cpc1cost;
   }
 }

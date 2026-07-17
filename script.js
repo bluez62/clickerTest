@@ -5,7 +5,7 @@ let cpc = 1;
 let cpc1cost = 50;
 
 function onecps() {
-  if(clicks >= 50) {
+  if(clicks >= cpc1cost) {
     clicks -= cpc1cost;
     cpc += 1;
     cpc1cost *= 1.15;

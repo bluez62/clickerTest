@@ -26,8 +26,14 @@ function doClick() {
   updateDisplay();
 }
 
-function updateDisplay() {
+function updateUI() {
+  // 1. Update the visible text on screen
   document.getElementById("counter").innerText = clicks + " Clicks";
-  document.getElementById("cpc1counter").innerText = "+1 CPC - Cost: " + cpc1cost;
-}
+  document.getElementById("cpc1counter").innerText = "+1 CPS - Cost: " + upgradeCost;
+  const upgradeBtn = document.getElementById("cpc1counter");
+  if (clicks >= upgradeCost) {
+    upgradeBtn.classList.add("affordable");
+  } else {
+    upgradeBtn.classList.remove("affordable");
+  }
 mrLoop();

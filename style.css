@@ -1,1 +1,122 @@
+/* 1. Global Reset & Theme Variables */
+:root {
+  --bg-color: #0f172a;
+  --panel-bg: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --primary-blue: #3b82f6;
+  --primary-hover: #2563eb;
+  --accent-green: #10b981;
+  --accent-hover: #059669;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* 2. Header & Layout Styling */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: var(--primary-blue);
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+#ver {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+
+main {
+  background-color: var(--panel-bg);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 3. Counter & Score Display */
+#counter {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+/* 4. Interactive Buttons */
+button {
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+/* Main Clicking Button */
+button[onclick="doClick()"] {
+  background-color: var(--primary-blue);
+  color: white;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 0 #1d4ed8;
+}
+
+button[onclick="doClick()"]:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+button[onclick="doClick()"]:active {
+  transform: translateY(2px);
+  box-shadow: 0 0px 0 #1d4ed8;
+}
+
+/* Upgrade / Shop Button */
+#cpc1counter {
+  background-color: #334155;
+  color: var(--text-muted);
+  border: 2px solid #475569;
+  font-size: 0.95rem;
+}
+
+#cpc1counter:hover {
+  background-color: var(--accent-green);
+  color: white;
+  border-color: var(--accent-green);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+#cpc1counter:active {
+  transform: scale(0.98);
+}

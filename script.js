@@ -1,4 +1,4 @@
-const version = "V1.0.3.1";
+const version = "V1.0.3.2";
 
 // --- 1. LOCAL STORAGE LOAD LOGIC ---
 // Check if a save exists. If it does, use it. Otherwise, use starting values.

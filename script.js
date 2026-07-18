@@ -76,12 +76,10 @@ function doClick(e) {
         const critAmount = cpc * 10;
         clicks += critAmount; 
         
-        // Trigger your previous counter animation
         const counterEl = document.getElementById("counter");
         counterEl.classList.add("critical-hit");
         setTimeout(() => counterEl.classList.remove("critical-hit"), 300);
 
-        // Call the new floating text function (only if a real click event exists)
         if (e) createFloatingText(e, `+${critAmount} CRIT!`);
 
     } else { 
@@ -98,13 +96,11 @@ function createFloatingText(e, text) {
   floatingText.className = "floating-crit";
   floatingText.innerText = text;
 
-  // Position the text exactly where the mouse clicked
   floatingText.style.left = `${e.clientX}px`;
   floatingText.style.top = `${e.clientY}px`;
 
   document.body.appendChild(floatingText);
 
-  // Remove the element from the DOM after the animation completes
   setTimeout(() => {
     floatingText.remove();
   }, 800);

@@ -1,4 +1,4 @@
-const version = "V1.0.3";
+const version = "V1.0.3.1";
 
 // --- 1. LOCAL STORAGE LOAD LOGIC ---
 // Check if a save exists. If it does, use it. Otherwise, use starting values.
@@ -41,6 +41,7 @@ function saveToLocalStorage() {
 // Fixed the updateIO typo to updateUI
 function mrLoop() {
     setTimeout(() => {
+        clicks += cps;
         mrLoop();
         updateUI(); 
     }, 1000 / 30);

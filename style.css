@@ -102,21 +102,31 @@ button[onclick="doClick()"]:active {
   box-shadow: 0 0px 0 #1d4ed8;
 }
 
-/* Upgrade / Shop Button */
+/* Default state: Locked / Cannot afford */
 #cpc1counter {
   background-color: #334155;
-  color: var(--text-muted);
+  color: #94a3b8;
   border: 2px solid #475569;
   font-size: 0.95rem;
+  opacity: 0.7; /* Optional visual cue that it is locked */
 }
 
-#cpc1counter:hover {
-  background-color: var(--accent-green);
+/* Dynamic state: Green when affordable */
+#cpc1counter.affordable {
+  background-color: #10b981;
   color: white;
-  border-color: var(--accent-green);
+  border-color: #10b981;
+  opacity: 1;
   box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
 }
 
-#cpc1counter:active {
+/* Hover effects only apply when the player can afford it */
+#cpc1counter.affordable:hover {
+  background-color: #059669;
+  border-color: #059669;
+}
+
+#cpc1counter.affordable:active {
   transform: scale(0.98);
 }
+

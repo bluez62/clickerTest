@@ -53,7 +53,7 @@ function mrLoop() {
         clicks += cps;
         mrLoop();
         updateUI(); 
-    }, 1000 / 30);
+    }, 1000);
 }
 
 function doClick() {

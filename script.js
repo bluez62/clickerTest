@@ -41,7 +41,7 @@ function updateUI() {
 
 function exportSave() {
   // 1. Get your save data from localStorage or state
-  const saveData = localStorage.getItem('myWebsiteSave');
+  const saveData = localStorage.getItem('bluezClickerSave');
   
   if (!saveData) {
     alert("No save data found to export!");
@@ -55,7 +55,7 @@ function exportSave() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'myWebsite_save.json'; // The file name the user will save
+  a.download = 'bluezClickerSave.json'; // The file name the user will save
   
   // 4. Trigger the download and clean up
   document.body.appendChild(a);
@@ -80,7 +80,7 @@ function importSave(event) {
       JSON.parse(fileContent); 
 
       // Save to localStorage
-      localStorage.setItem('myWebsiteSave', fileContent);
+      localStorage.setItem('bluezClickerSave', fileContent);
       
       alert("Save imported successfully! Refresh to apply changes.");
     } catch (error) {

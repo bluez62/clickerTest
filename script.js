@@ -1,14 +1,16 @@
-const version = "V1.0.3.2";
+const version = "V1.0.3.3";
 
 // --- 1. LOCAL STORAGE LOAD LOGIC ---
 // Check if a save exists. If it does, use it. Otherwise, use starting values.
-const savedData = JSON.parse(localStorage.getItem('userGameSave'));
+const savedData = JSON.parse(localStorage.getItem('userGameSave')) || {};
 
-let clicks = savedData ? savedData.clicks : 4;
-let cps = savedData ? savedData.cps : 0;
-let cpc = savedData ? savedData.cpc : 1;
-let cpc1cost = savedData ? savedData.cpc1cost : 100;
-let cps1cost = savedData ? savedData.cps1cost : 50;
+// If savedData exists, use its value. Otherwise, use the default starting value.
+let clicks = savedData.clicks ?? 4;
+let cps = savedData.cps ?? 0;
+let cpc = savedData.cpc ?? 1;
+let cpc1cost = savedData.cpc1cost ?? 100;
+let cps1cost = savedData.cps1cost ?? 50;
+
 
 function onecpc() {
     if(clicks >= cpc1cost) {
@@ -34,9 +36,16 @@ function onecps() {
 
 // Helper function to auto-save progress locally
 function saveToLocalStorage() {
-    const localSave = { clicks, cpc, cps, cpc1cost, cps1cost };
-    localStorage.setItem('userGameSave', JSON.stringify(localSave));
+  const localSave = { 
+    clicks, 
+    cpc, 
+    cps, 
+    cpc1cost, 
+    cps1cost,
+  };
+  localStorage.setItem('userGameSave', JSON.stringify(localSave));
 }
+
 
 // Fixed the updateIO typo to updateUI
 function mrLoop() {
@@ -71,13 +80,14 @@ function updateUI() {
 // --- EXPORT PROGRESS ---
 document.getElementById('exportBtn').addEventListener('click', () => {
     const saveData = {
-        clicks: clicks,
-        cpc: cpc,
-        cps: cps,
-        cpc1cost: cpc1cost,
-        cps1cost: cps1cost,
-        timestamp: new Date().toISOString()
+    clicks: clicks,
+    cpc: cpc,
+    cps: cps,
+    cpc1cost: cpc1cost,
+    cps1cost: cps1cost,
+    timestamp: new Date().toISOString()
     };
+
 
     const dataStr = JSON.stringify(saveData, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });

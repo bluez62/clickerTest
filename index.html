@@ -16,7 +16,9 @@
     <main>
         <h3 id="counter">0 Clicks</h3>
         <button onclick="doClick()">Click Me!</button>
-        <button id="cpc1counter" onclick="onecps()">+1 CPS - Cost: 50</button>
+        <button id="cpc1counter" onclick="onecps()">+1 CPS - Cost: 50</button
+        <input type="file" id="saveFileInput" accept=".json, .sav" onchange="importSave(event)">
+
     </main>
     <script src="script.js" defer></script>
 </body>

@@ -1,4 +1,4 @@
-const version = "V1.1.6";
+const version = "V1.1.7";
 
 const savedData = JSON.parse(localStorage.getItem('userGameSave')) || {};
 

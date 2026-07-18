@@ -30,7 +30,7 @@ function doClick() {
 function updateUI() {
   // 1. Update the visible text on screen
   document.getElementById("counter").innerText = clicks + " Clicks";
-  document.getElementById("cpc1counter").innerText = "+1 CPS - Cost: " + upgradeCost;
+  document.getElementById("cpc1counter").innerText = "+1 CPS - Cost: " + cpc1cost;
   const upgradeBtn = document.getElementById("cpc1counter");
   if (clicks >= cpc1cost) {
     upgradeBtn.classList.add("affordable");

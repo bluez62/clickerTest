@@ -7,12 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
-      <h1>Bluez Clicker</h1>
-      <p id="ver">V1.0.2</p>
+        <h1>Bluez Clicker</h1>
+        <p id="ver">V1.0.2</p>
     </header>
-
     <main>
         <h3 id="counter">0 Clicks</h3>
         <button onclick="doClick()">Click Me!</button>
@@ -20,14 +18,16 @@
         <button id="cps1counter" onclick="onecps()">+1 CPC - Cost: 50</button>
         
         <div class="save-controls">
-          <button id="exportBtn">Export Save</button>
-          <button id="importBtn">Import Save</button>
+            <button id="exportBtn">Export Save</button>
+            <button id="importBtn">Import Save</button>
+            <!-- New Wipe Data Button Added Below -->
+            <button id="wipeBtn" onclick="wipeData()">Wipe Data</button>
         </div>
     </main>
 
-    
     <!-- Hidden file input for loading files -->
     <input type="file" id="fileInput" accept=".json" style="display: none;">
+    
     <script src="script.js" defer></script>
 </body>
 </html>

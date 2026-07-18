@@ -1,4 +1,4 @@
-const version = "V1.0.3.4";
+const version = "V1.0.4";
 
 // --- 1. LOCAL STORAGE LOAD LOGIC ---
 // Check if a save exists. If it does, use it. Otherwise, use starting values.
@@ -46,6 +46,14 @@ function saveToLocalStorage() {
   localStorage.setItem('userGameSave', JSON.stringify(localSave));
 }
 
+function wipeData() {
+    localStorage.removeItem('userGameSave');
+    clicks = 0;
+    cpc = 1;
+    cps = 0;
+    cpc1cost = 100;
+    cps1cost = 50;
+}
 
 // Fixed the updateIO typo to updateUI
 function mrLoop() {

@@ -102,6 +102,36 @@ button[onclick="doClick()"]:active {
   box-shadow: 0 0px 0 #1d4ed8;
 }
 
+/* 5. Save/Load Utility Buttons */
+.save-controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.save-controls button {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  background-color: #334155; /* Subtle dark gray/blue matching your theme */
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.save-controls button:hover {
+  background-color: #475569;
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
+
+.save-controls button:active {
+  transform: translateY(1px);
+}
+
+
 /* Default state: Locked / Cannot afford */
 #cpc1counter {
   background-color: #334155;

@@ -81,19 +81,19 @@ button {
 }
 
 /* Main Clicking Button */
-button[onclick="doClick()"] {
+button[onclick="doClick(event)"] {
   background-color: var(--primary-blue);
   color: white;
   font-size: 1.3rem;
   box-shadow: 0 4px 0 #1d4ed8;
 }
 
-button[onclick="doClick()"]:hover {
+button[onclick="doClick(event)"]:hover {
   background-color: var(--primary-hover);
   transform: translateY(-2px);
 }
 
-button[onclick="doClick()"]:active {
+button[onclick="doClick(event)"]:active {
   transform: translateY(2px);
   box-shadow: 0 0px 0 #1d4ed8;
 }

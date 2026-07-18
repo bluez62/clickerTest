@@ -37,4 +37,5 @@ function updateUI() {
   } else {
     upgradeBtn.classList.remove("affordable");
   }
+}
 mrLoop();

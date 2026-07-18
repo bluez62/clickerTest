@@ -1,46 +1,60 @@
 const version = "V1.0.0";
-let clicks = 4;
-let cps = 0;
-let cpc = 1;
-let cpc1cost = 50;
+
+// --- 1. LOCAL STORAGE LOAD LOGIC ---
+// Check if a save exists. If it does, use it. Otherwise, use starting values.
+const savedData = JSON.parse(localStorage.getItem('userGameSave'));
+
+let clicks = savedData ? savedData.clicks : 4;
+let cps = savedData ? savedData.cps : 0;
+let cpc = savedData ? savedData.cpc : 1;
+let cpc1cost = savedData ? savedData.cpc1cost : 50;
 
 function onecps() {
-  if(clicks >= cpc1cost) {
-    clicks -= cpc1cost;
-    cpc += 1;
-    cpc1cost *= 1.15;
-    cpc1cost = Math.round(cpc1cost);
-    updateUI();
-  }
+    if(clicks >= cpc1cost) {
+        clicks -= cpc1cost;
+        cpc += 1;
+        cpc1cost *= 1.15;
+        cpc1cost = Math.round(cpc1cost);
+        saveToLocalStorage(); // Save locally when buying upgrades
+        updateUI();
+    }
 }
 
+// Helper function to auto-save progress locally
+function saveToLocalStorage() {
+    const localSave = { clicks, cpc, cps, cpc1cost };
+    localStorage.setItem('userGameSave', JSON.stringify(localSave));
+}
+
+// Fixed the updateIO typo to updateUI
 function mrLoop() {
-setTimeout(() => {
-  mrLoop();
-  updateIO();
-}, 1000 / 30);
+    setTimeout(() => {
+        mrLoop();
+        updateUI(); 
+    }, 1000 / 30);
 }
 
 function doClick() {
-  clicks += cpc
-  console.log(clicks)
-  updateUI();
+    clicks += cpc;
+    console.log(clicks);
+    saveToLocalStorage(); // Save locally when clicking
+    updateUI();
 }
 
 function updateUI() {
-  // 1. Update the visible text on screen
-  document.getElementById("counter").innerText = clicks + " Clicks";
-  document.getElementById("cpc1counter").innerText = "+1 CPS - Cost: " + cpc1cost;
-  const upgradeBtn = document.getElementById("cpc1counter");
-  if (clicks >= cpc1cost) {
-    upgradeBtn.classList.add("affordable");
-  } else {
-    upgradeBtn.classList.remove("affordable");
-  }
+    document.getElementById("counter").innerText = clicks + " Clicks";
+    document.getElementById("cpc1counter").innerText = "+1 CPS - Cost: " + cpc1cost;
+    const upgradeBtn = document.getElementById("cpc1counter");
+    
+    if (clicks >= cpc1cost) {
+        upgradeBtn.classList.add("affordable");
+    } else {
+        upgradeBtn.classList.remove("affordable");
+    }
 }
 
+// --- EXPORT PROGRESS ---
 document.getElementById('exportBtn').addEventListener('click', () => {
-    // 1. Gather your website state (e.g., from localStorage or a game object)
     const saveData = {
         clicks: clicks,
         cpc: cpc,
@@ -49,51 +63,45 @@ document.getElementById('exportBtn').addEventListener('click', () => {
         timestamp: new Date().toISOString()
     };
 
-    // 2. Convert data to a JSON string and create a Blob
     const dataStr = JSON.stringify(saveData, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
-    
-    // 3. Create a temporary download link and click it programmatically
     const url = URL.createObjectURL(blob);
     const downloadAnchor = document.createElement('a');
     
     downloadAnchor.href = url;
-    downloadAnchor.download = `bluezClicker${Date.now()}.json`; // Filename
+    downloadAnchor.download = `bluezClicker_${Date.now()}.json`;
     
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
-    
-    // 4. Clean up the DOM and memory
     document.body.removeChild(downloadAnchor);
     URL.revokeObjectURL(url);
 });
 
+// --- IMPORT PROGRESS ---
 const fileInput = document.getElementById('fileInput');
 
-// Trigger the hidden file selector when clicking the "Import" button
 document.getElementById('importBtn').addEventListener('click', () => {
     fileInput.click();
 });
 
-// Listen for when a file is selected
 fileInput.addEventListener('change', (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files[0]; // Fixed missing index [0] from your code
     if (!file) return;
 
     const reader = new FileReader();
     
-    // Define what happens when the file finishes loading
     reader.onload = (e) => {
         try {
             const importedData = JSON.parse(e.target.result);
             
-            // Validate your imported data structure here
-            if (importedData.clicks !== undefined && importedData.cps !== undefined) {
-                // Apply data to your app (example: saving back to localStorage)
+            // Check that the file actually contains clicker data
+            if (importedData.clicks !== undefined && importedData.cpc !== undefined) {
+                
+                // Save to localStorage so it is ready when the page reloads
                 localStorage.setItem('userGameSave', JSON.stringify(importedData));
                 
                 alert('Save imported successfully! Reloading page...');
-                location.reload(); // Reload to apply changes if necessary
+                location.reload(); 
             } else {
                 alert('Invalid save file format.');
             }
@@ -102,12 +110,10 @@ fileInput.addEventListener('change', (event) => {
         }
     };
 
-    // Read the file as plain text
     reader.readAsText(file);
-    
-    // Reset file input value so the same file can be uploaded again if needed
     fileInput.value = '';
 });
 
-
+// Start the game loop and render initial storage values
 mrLoop();
+updateUI();

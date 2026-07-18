@@ -127,7 +127,7 @@ button[onclick="doClick()"]:active {
 }
 
 
-#cpc1counter, #cps1counter {
+#cpc1counter, #cps1counter, #cHcounter.affordable{
   background-color: #334155;
   color: #94a3b8;
   border: 2px solid #475569;
@@ -135,7 +135,7 @@ button[onclick="doClick()"]:active {
   opacity: 0.7;
 }
 
-#cpc1counter.affordable, #cps1counter.affordable {
+#cpc1counter.affordable, #cps1counter.affordable, #cHcounter.affordable {
   background-color: #10b981;
   color: white;
   border-color: #10b981;
@@ -143,12 +143,12 @@ button[onclick="doClick()"]:active {
   box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
 }
 
-#cpc1counter.affordable:hover, #cps1counter.affordable:hover{
+#cpc1counter.affordable:hover, #cps1counter.affordable:hover, #cHcounter.affordable:hover{
   background-color: #059669;
   border-color: #059669;
 }
 
-#cpc1counter.affordable:active, #cps1counter.affordable:active{
+#cpc1counter.affordable:active, #cps1counter.affordable:active, #cHcounter.affordable:active{
   transform: scale(0.98);
 }
 
@@ -163,4 +163,75 @@ button[onclick="doClick()"]:active {
     color: white;
     border-color: #ef4444;
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+}
+
+/* Golden glow animation for the counter */
+@keyframes critFlash {
+  0% {
+    transform: scale(1);
+    color: var(--text-main);
+    text-shadow: none;
+  }
+  20% {
+    transform: scale(1.3) rotate(-3deg);
+    color: #f59e0b; /* Bright amber/gold */
+    text-shadow: 0 0 25px rgba(245, 158, 11, 0.8), 0 0 50px rgba(245, 158, 11, 0.4);
+  }
+  40% {
+    transform: scale(1.2) rotate(3deg);
+  }
+  60% {
+    transform: scale(1.25) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    color: var(--text-main);
+    text-shadow: none;
+  }
+}
+
+/* The active class triggered by JS */
+#counter.critical-hit {
+  animation: critFlash 0.3s ease-out forwards;
+}
+
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-4px, 3px); }
+  50% { transform: translate(4px, -2px); }
+  75% { transform: translate(-2px, -3px); }
+  100% { transform: translate(0, 0); }
+}
+
+main.screen-shake {
+  animation: shake 0.2s ease-in-out;
+  border-color: rgba(245, 158, 11, 0.5); /* Temporarily flashes the border gold */
+}
+
+/* Styling for the floating crit text */
+.floating-crit {
+  position: fixed;
+  pointer-events: none; /* Prevents the text from blocking future clicks */
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: #ef4444; /* Bright Red */
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.6), 0 0 20px rgba(0, 0, 0, 0.8);
+  transform: translate(-50%, -50%); /* Centers the text perfectly on the cursor */
+  z-index: 9999;
+  animation: floatUpAndFade 0.8s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+}
+
+/* The animation that moves it up and fades it out */
+@keyframes floatUpAndFade {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-50%, -80%) scale(1.3); /* Pop effect */
+  }
+  100% {
+    transform: translate(-50%, -180%) scale(1); /* Drifts up */
+    opacity: 0;
+  }
 }

@@ -16,16 +16,15 @@
         <button onclick="doClick()">Click Me!</button>
         <button id="cpc1counter" onclick="onecpc()">+1 CPC - Cost: 100</button>
         <button id="cps1counter" onclick="onecps()">+1 CPC - Cost: 50</button>
+        <button id="cHcounter" onclick="criticalHits()">Critical Hits - Cost: 500</button>
         
         <div class="save-controls">
             <button id="exportBtn">Export Save</button>
             <button id="importBtn">Import Save</button>
-            <!-- New Wipe Data Button Added Below -->
             <button id="wipeBtn" onclick="wipeData()">Wipe Data</button>
         </div>
     </main>
 
-    <!-- Hidden file input for loading files -->
     <input type="file" id="fileInput" accept=".json" style="display: none;">
     
     <script src="script.js" defer></script>

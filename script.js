@@ -1,15 +1,13 @@
-const version = "V1.0.4";
+const version = "V1.1.0";
 
-// --- 1. LOCAL STORAGE LOAD LOGIC ---
-// Check if a save exists. If it does, use it. Otherwise, use starting values.
 const savedData = JSON.parse(localStorage.getItem('userGameSave')) || {};
 
-// If savedData exists, use its value. Otherwise, use the default starting value.
 let clicks = savedData.clicks ?? 4;
 let cps = savedData.cps ?? 0;
 let cpc = savedData.cpc ?? 1;
 let cpc1cost = savedData.cpc1cost ?? 100;
 let cps1cost = savedData.cps1cost ?? 50;
+let criticalHitsPurchased = false;
 
 
 function onecpc() {
@@ -18,7 +16,7 @@ function onecpc() {
         cpc += 1;
         cpc1cost *= 1.15;
         cpc1cost = Math.round(cpc1cost);
-        saveToLocalStorage(); // Save locally when buying upgrades
+        saveToLocalStorage();
         updateUI();
     }
 }
@@ -29,12 +27,20 @@ function onecps() {
         cps += 1;
         cps1cost *= 1.15;
         cps1cost = Math.round(cps1cost);
-        saveToLocalStorage(); // Save locally when buying upgrades
+        saveToLocalStorage();
         updateUI();
     }
 }
 
-// Helper function to auto-save progress locally
+function criticalHits() {
+    if(clicks >= 500 && !criticalHitsPurchased) {
+        clicks -= 500;
+        criticalHitsPurchased = true;
+        saveToLocalStorage();
+        updateUI();
+    }
+}
+
 function saveToLocalStorage() {
   const localSave = { 
     clicks, 
@@ -55,7 +61,6 @@ function wipeData() {
     cps1cost = 50;
 }
 
-// Fixed the updateIO typo to updateUI
 function mrLoop() {
     setTimeout(() => {
         clicks += cps;
@@ -65,10 +70,42 @@ function mrLoop() {
 }
 
 function doClick() {
-    clicks += cpc;
+    if (criticalHitsPurchased && Math.random() < 0.1) { 
+        const critAmount = cpc * 10;
+        clicks += critAmount; 
+        
+        // Trigger your previous counter animation
+        const counterEl = document.getElementById("counter");
+        counterEl.classList.add("critical-hit");
+        setTimeout(() => counterEl.classList.remove("critical-hit"), 300);
+
+        // Call the new floating text function (only if a real click event exists)
+        if (e) createFloatingText(e, `+${critAmount} CRIT!`);
+
+    } else { 
+        clicks += cpc; 
+    }
+
     console.log(clicks);
-    saveToLocalStorage(); // Save locally when clicking
+    saveToLocalStorage();
     updateUI();
+}
+
+function createFloatingText(e, text) {
+  const floatingText = document.createElement("div");
+  floatingText.className = "floating-crit";
+  floatingText.innerText = text;
+
+  // Position the text exactly where the mouse clicked
+  floatingText.style.left = `${e.clientX}px`;
+  floatingText.style.top = `${e.clientY}px`;
+
+  document.body.appendChild(floatingText);
+
+  // Remove the element from the DOM after the animation completes
+  setTimeout(() => {
+    floatingText.remove();
+  }, 800);
 }
 
 function updateUI() {
@@ -78,6 +115,7 @@ function updateUI() {
     document.getElementById("ver").innerText = version;
     const upgradeBtn = document.getElementById("cpc1counter");
     const upgradeBtn2 = document.getElementById("cps1counter");
+    const upgradeBtn3 = document.getElementById("cHcounter");
     if (clicks >= cpc1cost) {
         upgradeBtn.classList.add("affordable");
     } else {
@@ -89,9 +127,14 @@ function updateUI() {
     } else {
         upgradeBtn2.classList.remove("affordable");
     }
+
+    if (clicks >= 500 && !criticalHitsPurchased) {
+        upgradeBtn3.classList.add("affordable");
+    } else {
+        upgradeBtn3.classList.remove("affordable");
+    }
 }
 
-// --- EXPORT PROGRESS ---
 document.getElementById('exportBtn').addEventListener('click', () => {
     const saveData = {
     clicks: clicks,
@@ -117,7 +160,6 @@ document.getElementById('exportBtn').addEventListener('click', () => {
     URL.revokeObjectURL(url);
 });
 
-// --- IMPORT PROGRESS ---
 const fileInput = document.getElementById('fileInput');
 
 document.getElementById('importBtn').addEventListener('click', () => {
@@ -125,7 +167,7 @@ document.getElementById('importBtn').addEventListener('click', () => {
 });
 
 fileInput.addEventListener('change', (event) => {
-    const file = event.target.files[0]; // Fixed missing index [0] from your code
+    const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
@@ -134,10 +176,8 @@ fileInput.addEventListener('change', (event) => {
         try {
             const importedData = JSON.parse(e.target.result);
             
-            // Check that the file actually contains clicker data
             if (importedData.clicks !== undefined && importedData.cpc !== undefined) {
                 
-                // Save to localStorage so it is ready when the page reloads
                 localStorage.setItem('userGameSave', JSON.stringify(importedData));
                 
                 alert('Save imported successfully! Reloading page...');
@@ -154,6 +194,5 @@ fileInput.addEventListener('change', (event) => {
     fileInput.value = '';
 });
 
-// Start the game loop and render initial storage values
 mrLoop();
 updateUI();

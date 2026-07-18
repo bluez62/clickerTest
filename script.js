@@ -1,4 +1,4 @@
-const version = "V1.1.3";
+const version = "V1.1.4";
 
 const savedData = JSON.parse(localStorage.getItem('userGameSave')) || {};
 
@@ -7,7 +7,7 @@ let cps = savedData.cps ?? 0;
 let cpc = savedData.cpc ?? 1;
 let cpc1cost = savedData.cpc1cost ?? 100;
 let cps1cost = savedData.cps1cost ?? 50;
-let criticalHitsPurchased = false;
+let criticalHitsPurchased = savedData.criticalHitsPurchased ?? false;
 
 
 function onecpc() {
@@ -48,6 +48,7 @@ function saveToLocalStorage() {
     cps, 
     cpc1cost, 
     cps1cost,
+    criticalHitsPurchased
   };
   localStorage.setItem('userGameSave', JSON.stringify(localSave));
 }
@@ -59,6 +60,7 @@ function wipeData() {
     cps = 0;
     cpc1cost = 100;
     cps1cost = 50;
+    criticalHitsPurchased = false;
 }
 
 function mrLoop() {
@@ -142,6 +144,7 @@ document.getElementById('exportBtn').addEventListener('click', () => {
     cps: cps,
     cpc1cost: cpc1cost,
     cps1cost: cps1cost,
+    criticalHitsPurchased: criticalHitsPurchased,
     timestamp: new Date().toISOString()
     };
 

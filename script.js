@@ -88,7 +88,7 @@ fileInput.addEventListener('change', (event) => {
             const importedData = JSON.parse(e.target.result);
             
             // Validate your imported data structure here
-            if (importedData.score !== undefined && importedData.level !== undefined) {
+            if (importedData.clicks !== undefined && importedData.cps !== undefined) {
                 // Apply data to your app (example: saving back to localStorage)
                 localStorage.setItem('userGameSave', JSON.stringify(importedData));
                 

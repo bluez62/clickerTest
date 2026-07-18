@@ -164,7 +164,6 @@ button[onclick="doClick(event)"]:active {
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
 }
 
-/* Golden glow animation for the counter */
 @keyframes critFlash {
   0% {
     transform: scale(1);
@@ -240,4 +239,83 @@ main.screen-shake {
   color: var(--text-muted);
   user-select: none;
   pointer-events: none; /* Prevents it from blocking clicks underneath */
+}
+
+/* Dark background overlay that covers the entire screen */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 23, 42, 0.85); /* Uses your --bg-color with opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Makes the modal visible when this active class is added */
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* The actual warning card */
+.modal-box {
+  background-color: var(--panel-bg);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(239, 68, 68, 0.2); /* Soft red border */
+  text-align: center;
+  max-width: 360px;
+  width: 90%;
+}
+
+.modal-box h2 {
+  color: #ef4444; /* Danger red */
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+}
+
+.modal-box p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+/* Layout for the modal choice buttons */
+.modal-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  font-size: 0.95rem;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+#cancelWipeBtn {
+  background-color: #334155;
+  color: var(--text-main);
+}
+#cancelWipeBtn:hover {
+  background-color: #475569;
+}
+
+#confirmWipeBtn {
+  background-color: #7f1d1d;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+}
+#confirmWipeBtn:hover {
+  background-color: #ef4444;
+  color: white;
 }

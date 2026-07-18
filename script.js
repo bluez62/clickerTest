@@ -1,4 +1,4 @@
-const version = "V1.1.5";
+const version = "V1.1.6";
 
 const savedData = JSON.parse(localStorage.getItem('userGameSave')) || {};
 
@@ -54,6 +54,11 @@ function saveToLocalStorage() {
 }
 
 function wipeData() {
+    const modal = document.getElementById('confirmModal');
+    modal.classList.add('active');
+}
+
+function executeWipe() {
     localStorage.removeItem('userGameSave');
     clicks = 0;
     cpc = 1;
@@ -62,6 +67,12 @@ function wipeData() {
     cps1cost = 50;
     criticalHitsPurchased = false;
     updateUI();
+    closeModal();
+}
+
+function closeModal() {
+    const modal = document.getElementById('confirmModal');
+    modal.classList.remove('active');
 }
 
 function mrLoop() {
@@ -195,6 +206,8 @@ fileInput.addEventListener('change', (event) => {
 });
 
 document.getElementById("clickBtn").addEventListener("click", doClick);
+document.getElementById('confirmWipeBtn').addEventListener('click', executeWipe);
+document.getElementById('cancelWipeBtn').addEventListener('click', closeModal);
 
 mrLoop();
 updateUI();

@@ -194,5 +194,7 @@ fileInput.addEventListener('change', (event) => {
     fileInput.value = '';
 });
 
+document.getElementById("clickBtn").addEventListener("click", doClick);
+
 mrLoop();
 updateUI();

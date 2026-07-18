@@ -1,4 +1,4 @@
-const version = "V1.0.0";
+const version = "V1.0.3";
 
 // --- 1. LOCAL STORAGE LOAD LOGIC ---
 // Check if a save exists. If it does, use it. Otherwise, use starting values.
@@ -7,9 +7,10 @@ const savedData = JSON.parse(localStorage.getItem('userGameSave'));
 let clicks = savedData ? savedData.clicks : 4;
 let cps = savedData ? savedData.cps : 0;
 let cpc = savedData ? savedData.cpc : 1;
-let cpc1cost = savedData ? savedData.cpc1cost : 50;
+let cpc1cost = savedData ? savedData.cpc1cost : 100;
+let cps1cost = savedData ? savedData.cps1cost : 50;
 
-function onecps() {
+function onecpc() {
     if(clicks >= cpc1cost) {
         clicks -= cpc1cost;
         cpc += 1;
@@ -20,9 +21,20 @@ function onecps() {
     }
 }
 
+function onecps() {
+    if(clicks >= cps1cost) {
+        clicks -= cps1cost;
+        cps += 1;
+        cps1cost *= 1.15;
+        cps1cost = Math.round(cps1cost);
+        saveToLocalStorage(); // Save locally when buying upgrades
+        updateUI();
+    }
+}
+
 // Helper function to auto-save progress locally
 function saveToLocalStorage() {
-    const localSave = { clicks, cpc, cps, cpc1cost };
+    const localSave = { clicks, cpc, cps, cpc1cost, cps1cost };
     localStorage.setItem('userGameSave', JSON.stringify(localSave));
 }
 
@@ -43,13 +55,15 @@ function doClick() {
 
 function updateUI() {
     document.getElementById("counter").innerText = clicks + " Clicks";
-    document.getElementById("cpc1counter").innerText = "+1 CPS - Cost: " + cpc1cost;
-    const upgradeBtn = document.getElementById("cpc1counter");
+    document.getElementById("cpc1counter").innerText = "+1 CPC - Cost: " + cpc1cost;
+    document.getElementById("cps1counter").innerText = "+1 CPS - Cost: " + cps1cost;
+    document.getElementById("ver").innerText = version;
+    const upgradeBtn2 = document.getElementById("cps1counter");
     
-    if (clicks >= cpc1cost) {
-        upgradeBtn.classList.add("affordable");
+    if (clicks >= cps1cost) {
+        upgradeBtn2.classList.add("affordable");
     } else {
-        upgradeBtn.classList.remove("affordable");
+        upgradeBtn2.classList.remove("affordable");
     }
 }
 
@@ -60,6 +74,7 @@ document.getElementById('exportBtn').addEventListener('click', () => {
         cpc: cpc,
         cps: cps,
         cpc1cost: cpc1cost,
+        cps1cost: cps1cost,
         timestamp: new Date().toISOString()
     };
 

@@ -42,9 +42,10 @@ function updateUI() {
 document.getElementById('exportBtn').addEventListener('click', () => {
     // 1. Gather your website state (e.g., from localStorage or a game object)
     const saveData = {
-        score: 1500,
-        level: 5,
-        playerName: "Alex",
+        clicks: clicks,
+        cpc: cpc,
+        cps: cps,
+        cpc1cost: cpc1cost,
         timestamp: new Date().toISOString()
     };
 
@@ -57,7 +58,7 @@ document.getElementById('exportBtn').addEventListener('click', () => {
     const downloadAnchor = document.createElement('a');
     
     downloadAnchor.href = url;
-    downloadAnchor.download = `mywebsite_save_${Date.now()}.json`; // Filename
+    downloadAnchor.download = `bluezClicker${Date.now()}.json`; // Filename
     
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();

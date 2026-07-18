@@ -10,20 +10,21 @@ function onecps() {
     cpc += 1;
     cpc1cost *= 1.15;
     cpc1cost = Math.round(cpc1cost);
-    updateDisplay();
+    updateUI();
   }
 }
 
 function mrLoop() {
 setTimeout(() => {
   mrLoop();
+  updateIO();
 }, 1000 / 30);
 }
 
 function doClick() {
   clicks += cpc
   console.log(clicks)
-  updateDisplay();
+  updateUI();
 }
 
 function updateUI() {

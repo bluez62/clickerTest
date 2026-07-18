@@ -231,3 +231,13 @@ main.screen-shake {
     opacity: 0;
   }
 }
+
+.top-left-text {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  user-select: none;
+  pointer-events: none; /* Prevents it from blocking clicks underneath */
+}

@@ -39,57 +39,74 @@ function updateUI() {
   }
 }
 
-function exportSave() {
-  // 1. Get your save data from localStorage or state
-  const saveData = localStorage.getItem('bluezClickerSave');
-  
-  if (!saveData) {
-    alert("No save data found to export!");
-    return;
-  }
+document.getElementById('exportBtn').addEventListener('click', () => {
+    // 1. Gather your website state (e.g., from localStorage or a game object)
+    const saveData = {
+        score: 1500,
+        level: 5,
+        playerName: "Alex",
+        timestamp: new Date().toISOString()
+    };
 
-  // 2. Create a Blob (Binary Large Object) containing the data
-  const blob = new Blob([saveData], { type: 'application/json' });
-  
-  // 3. Create a temporary download link
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'bluezClickerSave.json'; // The file name the user will save
-  
-  // 4. Trigger the download and clean up
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
+    // 2. Convert data to a JSON string and create a Blob
+    const dataStr = JSON.stringify(saveData, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    
+    // 3. Create a temporary download link and click it programmatically
+    const url = URL.createObjectURL(blob);
+    const downloadAnchor = document.createElement('a');
+    
+    downloadAnchor.href = url;
+    downloadAnchor.download = `mywebsite_save_${Date.now()}.json`; // Filename
+    
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    
+    // 4. Clean up the DOM and memory
+    document.body.removeChild(downloadAnchor);
+    URL.revokeObjectURL(url);
+});
 
-function importSave(event) {
-  const file = event.target.files[0];
-  
-  if (!file) return;
+const fileInput = document.getElementById('fileInput');
 
-  const reader = new FileReader();
-  
-  // When the reader finishes reading the file
-  reader.onload = function(e) {
-    try {
-      const fileContent = e.target.result;
-      
-      // Optional: verify that the JSON is valid before saving
-      JSON.parse(fileContent); 
+// Trigger the hidden file selector when clicking the "Import" button
+document.getElementById('importBtn').addEventListener('click', () => {
+    fileInput.click();
+});
 
-      // Save to localStorage
-      localStorage.setItem('bluezClickerSave', fileContent);
-      
-      alert("Save imported successfully! Refresh to apply changes.");
-    } catch (error) {
-      alert("Error parsing file. Please ensure it is a valid save file.");
-    }
-  };
-  
-  // Read the file as text
-  reader.readAsText(file);
-}
+// Listen for when a file is selected
+fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    
+    // Define what happens when the file finishes loading
+    reader.onload = (e) => {
+        try {
+            const importedData = JSON.parse(e.target.result);
+            
+            // Validate your imported data structure here
+            if (importedData.score !== undefined && importedData.level !== undefined) {
+                // Apply data to your app (example: saving back to localStorage)
+                localStorage.setItem('userGameSave', JSON.stringify(importedData));
+                
+                alert('Save imported successfully! Reloading page...');
+                location.reload(); // Reload to apply changes if necessary
+            } else {
+                alert('Invalid save file format.');
+            }
+        } catch (error) {
+            alert('Error reading save file. Ensure it is a valid JSON file.');
+        }
+    };
+
+    // Read the file as plain text
+    reader.readAsText(file);
+    
+    // Reset file input value so the same file can be uploaded again if needed
+    fileInput.value = '';
+});
+
 
 mrLoop();

@@ -32,7 +32,7 @@ function updateUI() {
   document.getElementById("counter").innerText = clicks + " Clicks";
   document.getElementById("cpc1counter").innerText = "+1 CPS - Cost: " + upgradeCost;
   const upgradeBtn = document.getElementById("cpc1counter");
-  if (clicks >= upgradeCost) {
+  if (clicks >= cpc1cost) {
     upgradeBtn.classList.add("affordable");
   } else {
     upgradeBtn.classList.remove("affordable");

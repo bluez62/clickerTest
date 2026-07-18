@@ -1,4 +1,4 @@
-const version = "V1.1.7";
+const version = "V1.1.8";
 
 const savedData = JSON.parse(localStorage.getItem('userGameSave')) || {};
 
@@ -66,6 +66,11 @@ function executeWipe() {
     cpc1cost = 100;
     cps1cost = 50;
     criticalHitsPurchased = false;
+    updateUI();
+    closeModal();
+}
+
+function cancelWipe() {
     updateUI();
     closeModal();
 }

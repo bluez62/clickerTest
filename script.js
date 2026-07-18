@@ -1,4 +1,4 @@
-const version = "V1.0.3.3";
+const version = "V1.0.3.4";
 
 // --- 1. LOCAL STORAGE LOAD LOGIC ---
 // Check if a save exists. If it does, use it. Otherwise, use starting values.
@@ -68,8 +68,14 @@ function updateUI() {
     document.getElementById("cpc1counter").innerText = "+1 CPC - Cost: " + cpc1cost;
     document.getElementById("cps1counter").innerText = "+1 CPS - Cost: " + cps1cost;
     document.getElementById("ver").innerText = version;
+    const upgradeBtn = document.getElementById("cpc1counter");
     const upgradeBtn2 = document.getElementById("cps1counter");
-    
+    if (clicks >= cpc1cost) {
+        upgradeBtn.classList.add("affordable");
+    } else {
+        upgradeBtn.classList.remove("affordable");
+    }
+
     if (clicks >= cps1cost) {
         upgradeBtn2.classList.add("affordable");
     } else {

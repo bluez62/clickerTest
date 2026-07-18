@@ -1,4 +1,4 @@
-const version = "V1.1.0";
+const version = "V1.1.1";
 
 const savedData = JSON.parse(localStorage.getItem('userGameSave')) || {};
 
@@ -69,7 +69,7 @@ function mrLoop() {
     }, 1000);
 }
 
-function doClick() {
+function doClick(e) {
     if (criticalHitsPurchased && Math.random() < 0.1) { 
         const critAmount = cpc * 10;
         clicks += critAmount; 

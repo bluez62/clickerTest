@@ -233,9 +233,20 @@ fileInput.addEventListener('change', (event) => {
     fileInput.value = '';
 });
 
-document.getElementById("clickBtn").addEventListener("click", doClick);
-document.getElementById('confirmWipeBtn').addEventListener('click', executeWipe);
-document.getElementById('cancelWipeBtn').addEventListener('click', closeModal);
+document.addEventListener("DOMContentLoaded", () => {
+  const clickBtn = document.getElementById("clickBtn");
+  if (clickBtn) {
+    clickBtn.addEventListener("click", doClick);
+  } else {
+    console.error("Error: Element with ID 'clickBtn' was not found in the HTML.");
+  }
+
+  // Safely attach the rest of your listeners
+  const confirmWipeBtn = document.getElementById('confirmWipeBtn');
+  if (confirmWipeBtn) confirmWipeBtn.addEventListener('click', executeWipe);
+
+  const cancelWipeBtn = document.getElementById('cancelWipeBtn');
+  if (cancelWipeBtn) cancelWipeBtn.addEventListener('click', closeModal);
 
 mrLoop();
 updateUI();

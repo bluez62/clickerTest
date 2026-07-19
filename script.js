@@ -247,6 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const cancelWipeBtn = document.getElementById('cancelWipeBtn');
   if (cancelWipeBtn) cancelWipeBtn.addEventListener('click', closeModal);
+});
 
 mrLoop();
 updateUI();

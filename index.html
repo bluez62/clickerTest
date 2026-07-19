@@ -10,11 +10,11 @@
     <div class="top-left-text">A game by Bluez62</div>
     <header>
         <h1>Bluez Clicker</h1>
-        <p id="ver">V1.2.0</p>
+        <p id="ver">V1.2.1</p>
     </header>
     <main>
         <h3 id="counter">0 Clicks</h3>
-        <button onclick="doClick(event)">Click Me!</button>
+        <button onclick="doClick(event)" id="clickBtn">Click Me!</button>
         <button id="cpc1counter" onclick="onecpc()">+1 CPC - Cost: 100</button>
         <button id="cps1counter" onclick="onecps()">+1 CPC - Cost: 50</button>
         <button id="cHcounter" onclick="criticalHits()">Critical Hits - Cost: 500</button>
@@ -29,7 +29,6 @@
 
     <input type="file" id="fileInput" accept=".json" style="display: none;">
     
-    <script src="script.js" defer></script>
     <div id="confirmModal" class="modal-overlay">
         <div class="modal-box">
             <h2>Wipe All Progress?</h2>
@@ -40,5 +39,6 @@
             </div>
         </div>
     </div>
+    <script src="script.js" defer></script>
 </body>
 </html>

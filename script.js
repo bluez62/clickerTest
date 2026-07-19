@@ -1,4 +1,4 @@
-const version = "V1.1.8";
+const version = "V1.2.0";
 
 const savedData = JSON.parse(localStorage.getItem('userGameSave')) || {};
 
@@ -8,6 +8,7 @@ let cpc = savedData.cpc ?? 1;
 let cpc1cost = savedData.cpc1cost ?? 100;
 let cps1cost = savedData.cps1cost ?? 50;
 let criticalHitsPurchased = savedData.criticalHitsPurchased ?? false;
+let clickerInterestPurchased = savedData.clickerInterestPurchased ?? false;
 
 
 function onecpc() {
@@ -41,6 +42,15 @@ function criticalHits() {
     }
 }
 
+function clickerInterest() {
+    if(clicks >= 5000 && !clickerInterestPurchased) {
+        clicks -= 5000;
+        clickerInterestPurchased = true;
+        saveToLocalStorage();
+        updateUI();
+    }
+}
+
 function saveToLocalStorage() {
   const localSave = { 
     clicks, 
@@ -48,7 +58,8 @@ function saveToLocalStorage() {
     cps, 
     cpc1cost, 
     cps1cost,
-    criticalHitsPurchased
+    criticalHitsPurchased,
+    clickerInterestPurchased
   };
   localStorage.setItem('userGameSave', JSON.stringify(localSave));
 }
@@ -66,6 +77,7 @@ function executeWipe() {
     cpc1cost = 100;
     cps1cost = 50;
     criticalHitsPurchased = false;
+    clickerInterestPurchased = false;
     updateUI();
     closeModal();
 }
@@ -83,6 +95,9 @@ function closeModal() {
 function mrLoop() {
     setTimeout(() => {
         clicks += cps;
+        if (clickerInterestPurchased) {
+            clicks *= 1.001;
+        }
         mrLoop();
         updateUI(); 
     }, 1000);
@@ -131,6 +146,7 @@ function updateUI() {
     const upgradeBtn = document.getElementById("cpc1counter");
     const upgradeBtn2 = document.getElementById("cps1counter");
     const upgradeBtn3 = document.getElementById("cHcounter");
+    const upgradeBtn4 = document.getElementById("cIcounter");
     if (clicks >= cpc1cost) {
         upgradeBtn.classList.add("affordable");
     } else {
@@ -148,6 +164,12 @@ function updateUI() {
     } else {
         upgradeBtn3.classList.remove("affordable");
     }
+
+    if (clicks >= 5000 && !clickerInterestPurchased) {
+        upgradeBtn4.classList.add("affordable");
+    } else {
+        upgradeBtn4.classList.remove("affordable");
+    }
 }
 
 document.getElementById('exportBtn').addEventListener('click', () => {
@@ -158,6 +180,7 @@ document.getElementById('exportBtn').addEventListener('click', () => {
     cpc1cost: cpc1cost,
     cps1cost: cps1cost,
     criticalHitsPurchased: criticalHitsPurchased,
+    clickerInterestPurchased: clickerInterestPurchased,
     timestamp: new Date().toISOString()
     };
 

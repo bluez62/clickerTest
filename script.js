@@ -96,7 +96,7 @@ function mrLoop() {
     setTimeout(() => {
         clicks += cps;
         if (clickerInterestPurchased) {
-            clicks *= 1.001;
+            clicks *= 2.001;
         }
         mrLoop();
         updateUI(); 

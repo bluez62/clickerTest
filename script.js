@@ -138,6 +138,15 @@ function createFloatingText(e, text) {
   }, 800);
 }
 
+function toggleChangelog(isOpen) {
+    const modal = document.getElementById('changelogModal');
+    if (isOpen) {
+        modal.classList.add('active');
+    } else {
+        modal.classList.remove('active');
+    }
+}
+
 function updateUI() {
     document.getElementById("counter").innerText = clicks + " Clicks";
     document.getElementById("cpc1counter").innerText = "+1 CPC - Cost: " + cpc1cost;

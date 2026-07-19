@@ -19,6 +19,42 @@
         <button id="cps1counter" onclick="onecps()">+1 CPC - Cost: 50</button>
         <button id="cHcounter" onclick="criticalHits()">Critical Hits - Cost: 500</button>
         <button id="cIcounter" onclick="clickerInterest()">+0.001% Total Clicks per second - Cost: 5000</button>
+                <!-- Trigger Button (Place this in your header or main panel) -->
+        <div class="save-controls">
+            <button onclick="toggleChangelog(true)">View Changelog</button>
+        </div>
+
+        <!-- Changelog Modal Overlay -->
+        <div id="changelogModal" class="modal-overlay" onclick="if(event.target === this) toggleChangelog(false)">
+            <div class="modal-box changelog-box">
+                <h2>Version Changelog</h2>
+                
+                <div class="changelog-content">
+                    <!-- Latest Version -->
+                    <div class="changelog-version">
+                        <h3>v1.2.0 <span class="changelog-date">July 2026</span></h3>
+                        <ul>
+                            <li>Added a critical hit visual effect shaking the main panel.</li>
+                            <li>Introduced smooth modal confirmation animations.</li>
+                            <li>Fixed a memory leak related to data auto-saving.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Older Version -->
+                    <div class="changelog-version">
+                        <h3>v1.1.0</h3>
+                        <ul>
+                            <li>Upgraded the UI theme to custom modern slate variables.</li>
+                            <li>Balanced the efficiency of purchase upgrades.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="modal-buttons">
+                    <button id="closeChangelogBtn" onclick="toggleChangelog(false)">Close</button>
+                </div>
+            </div>
+        </div>
         
         <div class="save-controls">
             <button id="exportBtn">Export Save</button>

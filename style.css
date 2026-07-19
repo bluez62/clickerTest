@@ -319,3 +319,99 @@ main.screen-shake {
   background-color: #ef4444;
   color: white;
 }
+
+/* Custom adjustments to make the general modal fit a changelog layout */
+.modal-box.changelog-box {
+    max-width: 450px; /* Marginally wider to read text easily */
+    border: 1px solid rgba(59, 130, 246, 0.2); /* Soft blue theme border */
+    text-align: left; /* Better readability for bullet points */
+}
+
+.modal-box.changelog-box h2 {
+    color: var(--primary-blue);
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+/* Scrollable container if your updates get very long */
+.changelog-content {
+    max-height: 250px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-right: 8px;
+}
+
+/* Custom Scrollbar styled for your dark theme */
+.changelog-content::-webkit-scrollbar {
+    width: 6px;
+}
+.changelog-content::-webkit-scrollbar-track {
+    background: var(--bg-color);
+    border-radius: 4px;
+}
+.changelog-content::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+.changelog-content::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* Individual update blocks */
+.changelog-version {
+    margin-bottom: 20px;
+}
+
+.changelog-version h3 {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    border-bottom: 1px solid #334155;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.changelog-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: normal;
+}
+
+/* Lists styling */
+.changelog-version ul {
+    list-style-type: none;
+    padding-left: 5px;
+}
+
+.changelog-version li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 15px;
+}
+
+/* Custom bullet indicator matching your text style */
+.changelog-version li::before {
+    content: "•";
+    color: var(--primary-blue);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Close button styled exactly like your secondary control buttons */
+#closeChangelogBtn {
+    background-color: #334155;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+#closeChangelogBtn:hover {
+    background-color: #475569;
+    transform: translateY(-1px);
+}

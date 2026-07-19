@@ -1,4 +1,4 @@
-const version = "V1.2.1";
+const version = "V1.2.2";
 
 const savedData = JSON.parse(localStorage.getItem('userGameSave')) || {};
 
@@ -96,7 +96,7 @@ function mrLoop() {
     setTimeout(() => {
         clicks += cps;
         if (clickerInterestPurchased) {
-            clicks *= 2.001;
+            clicks *= 1.001;
         }
         mrLoop();
         updateUI(); 
@@ -141,7 +141,7 @@ function createFloatingText(e, text) {
 function updateUI() {
     document.getElementById("counter").innerText = clicks + " Clicks";
     document.getElementById("cpc1counter").innerText = "+1 CPC - Cost: " + cpc1cost;
-    document.getElementById("cps1counter").innerText = "+1 CPS - Cost: " + cps1cost;
+    document.getElementById("cps1counter").innerText = "+1 CPS - Cost: " + Math.round(cps1cost);
     document.getElementById("ver").innerText = version;
     const upgradeBtn = document.getElementById("cpc1counter");
     const upgradeBtn2 = document.getElementById("cps1counter");

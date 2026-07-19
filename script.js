@@ -236,7 +236,7 @@ fileInput.addEventListener('change', (event) => {
 document.addEventListener("DOMContentLoaded", () => {
   const clickBtn = document.getElementById("clickBtn");
   if (clickBtn) {
-    clickBtn.addEventListener("click", doClick);
+    //clickBtn.addEventListener("click", doClick)
   } else {
     console.error("Error: Element with ID 'clickBtn' was not found in the HTML.");
   }
